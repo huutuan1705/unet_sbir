@@ -8,9 +8,9 @@ class ConvBlock(nn.Module):
             nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1, bias=False),
             nn.BatchNorm2d(out_channels),
             nn.LeakyReLU(),
-            # nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1, bias=False),
-            # nn.BatchNorm2d(out_channels),
-            # nn.ReLU(inplace=True),
+            nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1, bias=False),
+            nn.BatchNorm2d(out_channels),
+            nn.LeakyReLU(inplace=True),
         )
 
     def forward(self, x):
@@ -22,7 +22,7 @@ class Encoder(nn.Module):
     def __init__(self, in_channels, out_channels) -> None:
         super().__init__()
         self.encoder = nn.Sequential(
-            nn.MaxPool2d(2),
+            nn.AvgPool2d(2),
             ConvBlock(in_channels, out_channels)
         )
 
