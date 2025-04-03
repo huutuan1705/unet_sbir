@@ -37,5 +37,5 @@ if __name__ == "__main__":
     dataloader_train, dataloader_test = get_dataloader(args=args)
     
     if args.is_train_unet:
-        model_unet = UNet(n_channels=args.n_channels, n_classes=args.n_classes)
+        model_unet = UNet(n_channels=args.n_channels, n_classes=args.n_classes).to(device)
         train_losses, test_losses = training_unet(model_unet, dataloader_train, dataloader_test, args)
