@@ -36,16 +36,13 @@ def training_unet(model, train_dataloader, test_dataloader, args):
             optimizer.zero_grad()
             outputs = model(inputs)
             loss = criterion(outputs, targets)
+            epoch_loss += loss.item()
             loss.backward()
             optimizer.step()
             
-            epoch_loss += loss.item()
-        
         train_loss = epoch_loss / len(train_dataloader)
         test_loss = evaluate(model, test_dataloader, criterion)
         
-        train_loss = abs(train_loss)
-        test_loss = abs(test_loss)
         if test_loss < best_loss:
             name = "best_" + str(args.dataset_name) + "model.pth"
             torch.save(model.state_dict(), name)
