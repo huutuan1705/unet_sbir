@@ -31,6 +31,7 @@ if __name__ == "__main__":
     parsers.add_argument('--threads', type=int, default=4)
     parsers.add_argument('--epochs', type=int, default=200)
     parsers.add_argument('--batch_size', type=int, default=48)
+    parsers.add_argument('--test_batch_size', type=int, default=1)
     
     args = parsers.parse_args()
     dataloader_train, dataloader_test = get_dataloader(args=args)
