@@ -31,7 +31,7 @@ def inference(model, args):
     sketch_img = test_transform(sketch_raw_img)
     
     with torch.no_grad():
-        output_tensor = model(sketch_img)
+        output_tensor = model(sketch_img.to(device))
         
     output_image = output_tensor.squeeze().cpu().numpy()
     output_image = np.transpose(output_image, (1, 2, 0))
