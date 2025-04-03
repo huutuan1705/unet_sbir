@@ -5,6 +5,7 @@ import numpy as np
 import pickle
 from IPython.display import display
 import matplotlib.pyplot as plt
+%matplotlib inline
 import torchvision.transforms as transforms
 
 from tqdm import tqdm
