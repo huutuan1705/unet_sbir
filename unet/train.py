@@ -20,7 +20,7 @@ def evaluate(model, test_dataloader, criterion):
     return test_loss
 
 def training_unet(model, train_dataloader, test_dataloader, args):
-    criterion = nn.CrossEntropyLoss()
+    criterion = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
     
     model.train()
