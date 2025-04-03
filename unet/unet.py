@@ -7,10 +7,10 @@ class ConvBlock(nn.Module):
         self.conv_block = nn.Sequential(
             nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1, bias=False),
             nn.BatchNorm2d(out_channels),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1, bias=False),
-            nn.BatchNorm2d(out_channels),
-            nn.ReLU(inplace=True),
+            nn.LeakyReLU(),
+            # nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1, bias=False),
+            # nn.BatchNorm2d(out_channels),
+            # nn.ReLU(inplace=True),
         )
 
     def forward(self, x):
@@ -56,9 +56,9 @@ class UNet(nn.Module):
         self.enc_1 = Encoder(64, 128)
         self.enc_2 = Encoder(128, 256)
         self.enc_3 = Encoder(256, 512)
-        # self.enc_4 = Encoder(512, 1024)
+        self.enc_4 = Encoder(512, 1024)
 
-        # self.dec_1 = Decoder(1024, 512)
+        self.dec_1 = Decoder(1024, 512)
         self.dec_2 = Decoder(512, 256)
         self.dec_3 = Decoder(256, 128)
         self.dec_4 = Decoder(128, 64)
@@ -71,11 +71,10 @@ class UNet(nn.Module):
         x2 = self.enc_1(x1)
         x3 = self.enc_2(x2)
         x4 = self.enc_3(x3)
-        # x5 = self.enc_4(x4)
+        x5 = self.enc_4(x4)
 
-        # x = self.dec_1(x5, x4)
-        # x = self.dec_2(x, x3)
-        x = self.dec_2(x4, x3)
+        x = self.dec_1(x5, x4)
+        x = self.dec_2(x, x3)
         x = self.dec_3(x, x2)
         x = self.dec_4(x, x1)
 
