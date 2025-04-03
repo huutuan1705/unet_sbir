@@ -28,6 +28,7 @@ if __name__ == "__main__":
     parsers.add_argument('--root_dir', type=str, default='./../')
     
     parsers.add_argument('--lr', type=float, default=0.001)
+    parsers.add_argument('--threads', type=int, default=4)
     parsers.add_argument('--epochs', type=int, default=200)
     parsers.add_argument('--batch_size', type=int, default=48)
     
