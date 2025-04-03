@@ -4,7 +4,7 @@ import torch.utils.data as data
  
 from dataset.dataset import FGSBIR_Dataset
 from unet.unet import UNet
-from unet.train import training_unet
+from unet.train import training_unet, inference
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -20,6 +20,7 @@ def get_dataloader(args):
 if __name__ == "__main__":
     parsers = argparse.ArgumentParser(description='Unet Fine-Grained SBIR model')
     parsers.add_argument('--is_train_unet', type=bool, default=True)
+    parsers.add_argument('--is_inference_unet', type=bool, default=True)
     parsers.add_argument('--n_channels', type=int, default=3)
     parsers.add_argument('--n_classes', type=int, default=3)
     
@@ -36,6 +37,8 @@ if __name__ == "__main__":
     args = parsers.parse_args()
     dataloader_train, dataloader_test = get_dataloader(args=args)
     
+    model_unet = UNet(n_channels=args.n_channels, n_classes=args.n_classes).to(device)
+    
     if args.is_train_unet:
-        model_unet = UNet(n_channels=args.n_channels, n_classes=args.n_classes).to(device)
         train_losses, test_losses = training_unet(model_unet, dataloader_train, dataloader_test, args)
+    
