@@ -9,7 +9,7 @@ def evaluate(model, test_dataloader, criterion):
     test_loss = 0.0
     with torch.no_grad():
         for _, batch in enumerate(tqdm(test_dataloader)):
-            inputs, labels = batch["positive_img"].to(device), batch["sketch_img"].to(device)
+            inputs, labels = batch["sketch_img"].to(device), batch["positive_img"].to(device), 
 
             outputs = model(inputs)
             loss = criterion(outputs, labels)
@@ -32,7 +32,7 @@ def training_unet(model, train_dataloader, test_dataloader, args):
         print(f"Epoch: {epoch+1} / {args.epochs}")
         epoch_loss = 0
         for _, batch in enumerate(tqdm(train_dataloader)):
-            inputs, targets = batch["positive_img"].to(device), batch["sketch_img"].to(device)
+            inputs, targets = batch["sketch_img"].to(device), batch["positive_img"].to(device), 
             optimizer.zero_grad()
             outputs = model(inputs)
             loss = criterion(outputs, targets)
