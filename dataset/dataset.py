@@ -5,10 +5,10 @@ import random
 import torchvision.transforms.functional as F
 
 from torch.utils.data import Dataset
-from utils import get_transform
 from random import randint
 from PIL import Image
 
+from dataset.utils import get_transform
 from dataset.rasterize import rasterize_sketch
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
