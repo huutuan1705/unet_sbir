@@ -36,23 +36,8 @@ def inference(model, args):
         
     output_image = output_tensor.squeeze().cpu().numpy()
     output_image = np.transpose(output_image, (1, 2, 0))
-    
-    plt.figure(figsize=(10, 5))
-    plt.subplot(1, 2, 1)
-    plt.title('Input Image')
-    plt.imshow(sketch_raw_img)
-    plt.axis('off')
-    
-    plt.subplot(1, 2, 2)
-    plt.title('Generated Image')
-    plt.imshow(output_image)
-    plt.axis('off')
-    
-    plt.tight_layout()
-    plt.show()
-    
-    plt.savefig("output.png")
-    display(Image.open("output.png"))
+    output_image = np.clip(output_image, 0, 1)
+    plt.imsave("output.png", output_image)
     
 def evaluate(model, test_dataloader, criterion):
     model.eval()
