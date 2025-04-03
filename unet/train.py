@@ -15,6 +15,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 def inference(model, args):
+    model.to(device)
     model.eval()
     coordinate_path = os.path.join(args.root_dir, args.dataset_name, args.dataset_name + '_Coordinate')
     with open(coordinate_path, 'rb') as f:
