@@ -26,6 +26,7 @@ def training_unet(model, train_dataloader, test_dataloader, args):
     model.train()
     train_losses = []
     test_losses = []
+    best_loss = float('inf')
     
     for epoch in range(args.epochs):
         print(f"Epoch: {epoch+1} / {args.epochs}")
@@ -42,7 +43,11 @@ def training_unet(model, train_dataloader, test_dataloader, args):
         
         train_loss = epoch_loss / len(train_dataloader)
         test_loss = evaluate(model, test_dataloader, criterion)
-        print("Trainning loss: {train_loss:.4f}, Test Loss: {test_loss:.4f}")
+        if test_loss < best_loss:
+            name = "best_" + str(args.dataset_name) + "model.pth"
+            torch.save(model.state_dict(), name)
+            
+        print(f"Trainning loss: {train_loss:.4f}, Test Loss: {test_loss:.4f}")
         
         train_losses.append(train_loss)
         test_losses.append(test_loss)
