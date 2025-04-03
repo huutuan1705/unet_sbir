@@ -3,6 +3,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 import pickle
+from IPython.display import display
 import matplotlib.pyplot as plt
 import torchvision.transforms as transforms
 
@@ -49,6 +50,9 @@ def inference(model, args):
     
     plt.tight_layout()
     plt.show()
+    
+    plt.savefig("output.png")
+    display(Image.open("output.png"))
     
 def evaluate(model, test_dataloader, criterion):
     model.eval()
