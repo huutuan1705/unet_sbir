@@ -44,7 +44,7 @@ def evaluate(model, test_dataloader, criterion):
     test_loss = 0.0
     with torch.no_grad():
         for _, batch in enumerate(tqdm(test_dataloader)):
-            inputs, labels = batch["sketch_img"].to(device), batch["positive_img"].to(device), 
+            labels, inputs  = batch["sketch_img"].to(device), batch["positive_img"].to(device), 
 
             outputs = model(inputs)
             loss = criterion(outputs, labels)
@@ -55,7 +55,7 @@ def evaluate(model, test_dataloader, criterion):
     return test_loss
 
 def training_unet(model, train_dataloader, test_dataloader, args):
-    criterion = nn.CrossEntropyLoss()
+    criterion = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
     
     model.train()
