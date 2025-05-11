@@ -67,7 +67,7 @@ def training_unet(model, train_dataloader, test_dataloader, args):
         print(f"Epoch: {epoch+1} / {args.epochs}")
         epoch_loss = 0
         for _, batch in enumerate(tqdm(train_dataloader)):
-            inputs, targets = batch["sketch_img"].to(device), batch["positive_img"].to(device), 
+            targets, inputs = batch["sketch_img"].to(device), batch["positive_img"].to(device), 
             optimizer.zero_grad()
             outputs = model(inputs)
             loss = criterion(outputs, targets)
