@@ -56,7 +56,7 @@ def evaluate(model, test_dataloader, criterion):
 
 def training_unet(model, train_dataloader, test_dataloader, args):
     criterion = nn.CrossEntropyLoss()
-    optimizer = torch.optim.SGD(model.parameters(), lr=args.lr)
+    optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
     
     model.train()
     train_losses = []
