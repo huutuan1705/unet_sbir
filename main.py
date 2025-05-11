@@ -22,7 +22,7 @@ if __name__ == "__main__":
     parsers.add_argument('--is_train_unet', type=bool, default=True)
     parsers.add_argument('--is_inference_unet', type=bool, default=True)
     parsers.add_argument('--n_channels', type=int, default=3)
-    parsers.add_argument('--n_classes', type=int, default=2)
+    parsers.add_argument('--n_classes', type=int, default=3)
     
     parsers.add_argument('--dataset_name', type=str, default='ChairV2', help="ChairV2/ShoeV2")
     parsers.add_argument('--backbone_name', type=str, default='InceptionV3', help='VGG16/InceptionV3/ResNet50')
