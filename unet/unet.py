@@ -23,7 +23,7 @@ class Encoder(nn.Module):
     def __init__(self, in_channels, out_channels) -> None:
         super().__init__()
         self.encoder = nn.Sequential(
-            nn.AvgPool2d(2),
+            nn.MaxPool2d(2),
             ConvBlock(in_channels, out_channels)
         )
 
