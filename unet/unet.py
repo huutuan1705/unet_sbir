@@ -10,7 +10,8 @@ class ConvBlock(nn.Module):
             nn.ReLU(),
             nn.Conv2d(out_channels // 2, out_channels, kernel_size=3, padding=1, bias=False),
             nn.BatchNorm2d(out_channels),
-            nn.ReLU(inplace=True),
+            nn.ReLU(),
+            nn.Dropout(0.2),
         )
 
     def forward(self, x):
